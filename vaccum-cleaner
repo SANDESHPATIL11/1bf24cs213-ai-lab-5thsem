@@ -1,0 +1,37 @@
+class VacuumCleanerAgent:
+    def __init__(self):
+        self.location = "A"
+
+    def perceive(self, environment):
+        return environment[self.location]
+
+    def act(self, environment):
+        status = self.perceive(environment)
+
+        if status == "Dirty":
+            print(f"Location {self.location}: Dirty → Suck")
+            environment[self.location] = "Clean"
+
+        elif self.location == "A":
+            print("Location A: Clean → Move Right")
+            self.location = "B"
+
+        else:
+            print("Location B: Clean → Move Left")
+            self.location = "A"
+
+
+# Environment
+environment = {
+    "A": "Dirty",
+    "B": "Dirty"
+}
+
+# Create agent
+agent = VacuumCleanerAgent()
+
+# Run the agent
+for step in range(6):
+    agent.act(environment)
+
+print("\nFinal environment:", environment)
